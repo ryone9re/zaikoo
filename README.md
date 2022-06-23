@@ -1,68 +1,73 @@
-# Next.js with TypeScript, Eslint and Prettier example
+# zaikos管理リポジトリ
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+このリポジトリは在庫管理システムのフロントエンド､zaikosの開発リポジトリ兼ホスティングリポジトリになります｡
 
-## How to use it?
+## ビルド状況
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## ローカル開発環境構築
 
-```bash
-npx create-next-app --example https://github.com/ryone9re/nextjs-example nextjs-app
-# or
-yarn create next-app --example https://github.com/ryone9re/nextjs-example nextjs-app
-```
+このプロジェクトは vscode devcontainer を導入しています｡
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+そちらよりコンテナを起動することで､バージョンの差異を気にすることなく開発が出来ます｡
 
-## Notes
+まず､このレポジトリを Remote Container 機能を使用し､コンテナ内で開いてください｡
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
-
-## Getting Started
-
-First, run the development server:
+ローカルサーバーが起動できます｡
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 開発詳細
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+ソースコードは`src`以下に存在します｡
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### ブランチについて
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`main`ブランチをサイトのビルドブランチとして使用しております｡
 
-## Learn More
+また､`dev`ブランチを開発用のブランチとし､開発しています｡
 
-To learn more about Next.js, take a look at the following resources:
+そのため､新たに変更を加えるときは`dev`ブランチより新たにブランチを作成し､開発を行ってください｡
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### TypeScript
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+このプロジェクトでは､TypeScript を採用しております｡
 
-## Deploy on Vercel
+型の宣言は全て`type`より行い､`interface`は抽象クラスとして使用してください｡
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+型を明示的にしなければならない時以外は､なるべく型推論を利用してください｡
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### デザイン設計
+
+ディレクトリ構成として､原則アトミックデザインを採用していますが､MUIを導入しているため､すこしざっくりでもいいです｡
+
+新規コンポーネントを作成する際は､そちらに沿って作成をお願いいたします｡
+
+### API
+
+`src/pages/api/*`以下はAPI Routesとして機能します｡
+
+詳しい使い方は[API Routes](https://nextjs.org/docs/api-routes/introduction)を参照してください｡
+
+### Lint & Format
+
+ESLint によるリント､Prettier によるソースコードフォーマットを行っております｡
+
+特に Prettier については､vscode 使用時はファイル保存時に自動でフォーマットが行われるよう設定を行っております｡
+
+## License
+
+このサイトのソースコードは[MIT ライセンス](https://opensource.org/licenses/MIT)によりライセンスされています｡
+
+外部ライブラリ等の使用によるライセンスの継承が発生した際は､そのライセンスを継承します｡
+
+ソースコードは､株式会社 Women's Future Center の許可を得た場合のみ､公開できます｡
+
+また､その他ロゴマーク等は､株式会社 Women's Future Center の著作権取り扱いが適用されます｡
+
+## Authors
+
+- [株式会社 Women's Future Center](https://wfc-wa.com)
+
+- Ryoichi Kurimoto ([ryone9re](https://github.com/ryone9re))
