@@ -1,11 +1,11 @@
-import { Button } from '@mui/material';
+import TopPage from '../components/pages/Top';
 
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   return (
     <>
-      <Button variant='contained'>Hello World</Button>
+      <TopPage />
     </>
   );
 };
