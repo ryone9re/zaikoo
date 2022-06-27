@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Supplier {
+  id               Int      @id @default(autoincrement())
+  supplier_name    String
+  // No hyphen
+  postal_code      String
+  address          String
+  email_address    String
+  // No hyphen
+  phone_number     String
+  division_name    String?
+  // No divide
+  responsible_name String?
+  stock            Stock[]
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+model Base {
+  id               Int      @id @default(autoincrement())
+  base_name        String
+  // No hyphen
+  postal_code      String
+  address          String
+  // No hyphen
+  phone_number     String?
+  email_address    String?
+  division_name    String?
+  // No divide
+  responsible_name String?
+  stock            Stock[]
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+model Stock {
+  id                  Int      @id @default(autoincrement())
+  product             Product  @relation(fields: [product_id], references: [id])
+  product_id          Int
+  supplier            Supplier @relation(fields: [supplier_id], references: [id])
+  supplier_id         Int
+  stock_quantity      Int
+  purchase_unit_price Int
+  selling_unit_price  Int?
+  base                Base     @relation(fields: [base_id], references: [id])
+  base_id             Int
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+}
+
+model Product {
+  id               Int            @id @default(autoincrement())
+  denomination     String
+  name             String
+  description      String?
+  part_number      Int?
+  reorder_point    Int?
+  category         Child_category @relation(fields: [category_id], references: [id])
+  category_id      Int
+  tax              Tax_rate       @relation(fields: [tax_id], references: [id])
+  tax_id           Int
+  stock            Stock[]
+  request_product  Menu[]         @relation("RequestProduct")
+  required_product Menu[]         @relation("RequiredProduct")
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
+}
+
+model Menu {
+  id                  Int      @id @default(autoincrement())
+  request_product     Product  @relation(name: "RequestProduct", fields: [request_product_id], references: [id])
+  request_product_id  Int
+  required_product    Product  @relation(name: "RequiredProduct", fields: [required_product_id], references: [id])
+  required_product_id Int
+  required_number     Int
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  @@unique([request_product_id, required_product_id])
+}
+
+model Parent_category {
+  id         Int              @id @default(autoincrement())
+  name       String           @unique
+  child      Child_category[]
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+}
+
+model Child_category {
+  id         Int             @id @default(autoincrement())
+  parent     Parent_category @relation(fields: [parent_id], references: [id])
+  parent_id  Int
+  name       String
+  product    Product[]
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+
+  @@unique([parent_id, name])
+}
+
+model Tax_rate {
+  id         Int       @id @default(autoincrement())
+  // If tax rate is 10%, the value is 0.1
+  rate       Float
+  product    Product[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+}

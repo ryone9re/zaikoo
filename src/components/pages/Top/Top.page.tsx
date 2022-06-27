@@ -24,7 +24,7 @@ export const TopPage = () => {
     <>
       <Header toggleDrawer={toggleDrawer} />
       <Drawer isOpenDrawer={isOpenDrawer} toggleDrawer={toggleDrawer} />
-      <Suspense>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <Top />
       </Suspense>
     </>
