@@ -1,16 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "run-p dev:*",
+    "dev:next": "next dev",
+    "dev:aspida": "aspida --watch",
+    "build": "aspida && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,ts,tsx,json,css}'",
-    "generate": "npx prisma generate"
+    "generate": "npx prisma generate",
+    "genapi": "rm -rf api && npx openapi2aspida -i"
   },
   "dependencies": {
-    "@aspida/fetch": "^1.10.2",
-    "@aspida/swr": "^1.10.2",
+    "@aspida/axios": "^1.10.3",
+    "@aspida/swr": "^1.10.3",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
@@ -20,7 +23,9 @@
     "@mui/material": "latest",
     "@mui/x-data-grid": "^5.12.3",
     "@prisma/client": "^3.15.2",
+    "axios": "^0.27.2",
     "firebase": "^9.9.0",
+    "google-libphonenumber": "^3.2.30",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
@@ -29,6 +34,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/google-libphonenumber": "^7.4.23",
     "@types/node": "latest",
     "@types/react": "latest",
     "eslint": "latest",
@@ -36,6 +42,7 @@
     "eslint-config-prettier": "latest",
     "eslint-import-resolver-typescript": "latest",
     "eslint-plugin-import": "latest",
+    "npm-run-all": "^4.1.5",
     "prettier": "latest",
     "typescript": "latest"
   }
