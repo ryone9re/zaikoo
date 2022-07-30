@@ -13,7 +13,7 @@ export type StockGridRow = {
   updatedAt: Date;
 };
 
-export const StockGridColDef: GridColDef[] = [
+export const StockGridColDef: GridColDef<StockGridRow>[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
   { field: 'productName', headerName: '商品名', flex: 1 },
   { field: 'supplierName', headerName: '仕入先', flex: 1 },
