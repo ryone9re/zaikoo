@@ -1,30 +1,19 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 
 import Header from '../../ui/AppBar/Header';
-import Drawer from '../../ui/Drawer/Drawer';
+import { useDrawer } from '../../ui/Drawer/Drawer';
+import { Loading } from '../../ui/Loading/Loading';
 
 import { Top } from './Top';
 
 export const TopPage = () => {
-  const [isOpenDrawer, setDrawer] = useState(false);
-
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-
-    setDrawer(open);
-  };
+  const [isOpenDrawer, toggleDrawer, Drawer] = useDrawer(false);
 
   return (
     <>
       <Header toggleDrawer={toggleDrawer} />
       <Drawer isOpenDrawer={isOpenDrawer} toggleDrawer={toggleDrawer} />
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<Loading />}>
         <Top />
       </Suspense>
     </>

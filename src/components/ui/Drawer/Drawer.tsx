@@ -8,6 +8,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import React from 'react';
+import { useState } from 'react';
 
 import { Link } from '../Link/Link';
 
@@ -18,7 +19,25 @@ type Props = {
   toggleDrawer: (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 };
 
-export default function TemporaryDrawer({ isOpenDrawer, toggleDrawer }: Props) {
+export const useDrawer = (initialState: boolean) => {
+  const [isOpenDrawer, setDrawer] = useState(initialState);
+
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+
+    setDrawer(open);
+  };
+
+  return [isOpenDrawer, toggleDrawer, TemporaryDrawer] as const;
+};
+
+const TemporaryDrawer = ({ isOpenDrawer, toggleDrawer }: Props) => {
   const list = () => (
     <Box
       sx={{ width: 250 }}
@@ -52,4 +71,4 @@ export default function TemporaryDrawer({ isOpenDrawer, toggleDrawer }: Props) {
       </>
     </div>
   );
-}
+};
