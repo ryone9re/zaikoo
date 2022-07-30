@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useClient } from '../../../hooks/useClient';
 import { DataGridTemplate } from '../../model/Stock/DataGrid/DataGridTemplate';
 import { StockGridColDef, StockGridRow } from '../../model/Stock/DataGrid/StockGrid';
 import { StockForm } from '../../model/Stock/Form/StockForm';
@@ -7,7 +8,9 @@ import { GridChild } from '../Template/GridChild';
 import { GridParent } from '../Template/GridParent';
 
 export const Top = () => {
+  const client = useClient();
   const [rows, setRows] = useState<StockGridRow[]>([]);
+
   useEffect(() => {
     const date = new Date();
     setRows([
@@ -25,11 +28,12 @@ export const Top = () => {
       },
     ]);
   }, []);
+
   return (
     <main>
       <GridParent>
         <GridChild>
-          <StockForm />
+          <StockForm onSubmit={() => console.log('Sub')} />
         </GridChild>
         <GridChild>
           <DataGridTemplate height={500} rows={rows} colDef={StockGridColDef} />
