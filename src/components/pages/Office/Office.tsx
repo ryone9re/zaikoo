@@ -1,25 +1,27 @@
-import useAspidaSWR from '@aspida/swr';
+import { useState } from 'react';
 
-import { useClient } from '../../../hooks/useClient';
-import { DataGridTemplate } from '../../model/Stock/DataGrid/DataGridTemplate';
-import { OfficeGridColDef } from '../../model/Stock/DataGrid/OfficeGrid';
-import { OfficeForm } from '../../model/Stock/Form/OfficeForm';
+import { GetBaseDto, GetSupplierDto } from '../../../../api/@types';
+import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
+import { OfficeGridColDef } from '../../model/DataGrid/OfficeGrid';
+import { OfficeForm } from '../../model/Form/OfficeForm';
 import { GridChild } from '../Template/GridChild';
 import { GridParent } from '../Template/GridParent';
 
 export const Office = () => {
-  const client = useClient();
-
-  const { data } = useAspidaSWR(client.api.office.supplier, { suspense: true });
+  const [supplierRows, setSupplierRows] = useState<GetSupplierDto[]>([]);
+  const [baseRows, setBaseRows] = useState<GetBaseDto[]>([]);
 
   return (
     <main>
       <GridParent>
         <GridChild>
-          <OfficeForm />
+          <OfficeForm onSubmit={() => {}} />
         </GridChild>
         <GridChild>
-          <DataGridTemplate height={500} rows={data} colDef={OfficeGridColDef} />
+          <DataGridTemplate height={500} rows={supplierRows} colDef={OfficeGridColDef} />
+        </GridChild>
+        <GridChild>
+          <DataGridTemplate height={500} rows={baseRows} colDef={OfficeGridColDef} />
         </GridChild>
       </GridParent>
     </main>

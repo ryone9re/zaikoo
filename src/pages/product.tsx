@@ -2,7 +2,7 @@ import ProductPage from '../components/pages/Product';
 
 import type { NextPage } from 'next';
 
-const home: NextPage = () => {
+const product: NextPage = () => {
   return (
     <>
       <ProductPage />
@@ -10,4 +10,4 @@ const home: NextPage = () => {
   );
 };
 
-export default home;
+export default product;

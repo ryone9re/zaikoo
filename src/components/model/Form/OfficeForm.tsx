@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { FormTemplate } from './FormTemplate';
+import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
 export type OfficeInputs = {
   name: string;
@@ -19,16 +19,16 @@ export type OfficeInputs = {
 
 const schema = yup.object({
   name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
-  postalCode: yup.number().typeError('有効な数字を入力してください').required('必須項目です'),
+  postalCode: yup.string().typeError('有効な数字を入力してください').required('必須項目です'),
   address: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
-  phoneNumber: yup.number().typeError('有効な数字を入力してください').notRequired(),
+  phoneNumber: yup.string().typeError('有効な数字を入力してください').notRequired(),
   emailAddress: yup.string().typeError('有効な文字を入力してください').email().notRequired(),
   divisionName: yup.string().typeError('有効な文字を入力してください').notRequired(),
   responsibleName: yup.string().typeError('有効な文字を入力してください').notRequired(),
   isSupplier: yup.boolean(),
 });
 
-export const OfficeForm = () => {
+export const OfficeForm = ({ onSubmit }: FormSubmitProps<OfficeInputs>) => {
   const {
     register,
     handleSubmit,
@@ -40,12 +40,7 @@ export const OfficeForm = () => {
   const [isSupplier, setIsSupplier] = useState<boolean>(false);
 
   return (
-    <FormTemplate
-      onClick={handleSubmit(() => {
-        console.log('sub');
-      })}
-      submitString='登録'
-    >
+    <FormTemplate onClick={handleSubmit(onSubmit)} submitString='登録'>
       <TextField
         required
         label='名前'

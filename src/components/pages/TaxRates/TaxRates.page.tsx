@@ -6,9 +6,9 @@ import { useDrawer } from '../../ui/Drawer/Drawer';
 import { Error } from '../../ui/Error/Error';
 import { Loading } from '../../ui/Loading/Loading';
 
-import { Office } from './Office';
+import { TaxRates } from './TaxRates';
 
-export const OfficePage = () => {
+export const TaxRatesPage = () => {
   const [isOpenDrawer, toggleDrawer, Drawer] = useDrawer(false);
 
   return (
@@ -17,7 +17,7 @@ export const OfficePage = () => {
       <Drawer isOpenDrawer={isOpenDrawer} toggleDrawer={toggleDrawer} />
       <ErrorBoundary FallbackComponent={Error}>
         <Suspense fallback={<Loading />}>
-          <Office />
+          <TaxRates />
         </Suspense>
       </ErrorBoundary>
     </>
