@@ -9,11 +9,17 @@ export type MenuInputs = {
   requestProductName: string;
   requiredProductName: string;
   requiredNumber: number;
-}
+};
 
 const schema = yup.object({
-  requestProductName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
-  requiredProductName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  requestProductName: yup
+    .string()
+    .typeError('有効な文字を入力してください')
+    .required('必須項目です'),
+  requiredProductName: yup
+    .string()
+    .typeError('有効な文字を入力してください')
+    .required('必須項目です'),
   requiredNumber: yup
     .number()
     .typeError('有効な数を入力してください')
@@ -35,7 +41,7 @@ export const MenuForm = ({ onSubmit }: FormSubmitProps<MenuInputs>) => {
     <FormTemplate onClick={handleSubmit(onSubmit)} submitString='登録'>
       <TextField
         required
-        label='商品名'
+        label='希望商品'
         type='text'
         {...register('requestProductName')}
         error={'requestProductName' in errors}
@@ -43,7 +49,7 @@ export const MenuForm = ({ onSubmit }: FormSubmitProps<MenuInputs>) => {
       />
       <TextField
         required
-        label='商品名'
+        label='必要材料'
         type='text'
         {...register('requiredProductName')}
         error={'requiredProductName' in errors}
@@ -51,7 +57,7 @@ export const MenuForm = ({ onSubmit }: FormSubmitProps<MenuInputs>) => {
       />
       <TextField
         required
-        label='商品名'
+        label='必要数'
         type='text'
         {...register('requiredNumber')}
         error={'requiredNumber' in errors}

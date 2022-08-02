@@ -10,6 +10,7 @@ import { FormSubmitProps, FormTemplate } from './FormTemplate';
 const schema = yup.object({
   deonmination: yup.string().typeError('有効な単位を入力してください').required('必須項目です'),
   name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  description: yup.string().typeError('有効な文字を入力してください').notRequired(),
   category_id: yup
     .number()
     .typeError('有効な文字を入力してください')
@@ -24,7 +25,6 @@ const schema = yup.object({
     .integer('整数値のみ登録できます')
     .min(1, '下限以下の値が指定されています')
     .required('必須項目です'),
-  description: yup.string().typeError('有効な文字を入力してください').notRequired(),
   part_number: yup
     .number()
     .typeError('有効な文字を入力してください')
@@ -46,7 +46,7 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
     <FormTemplate onClick={handleSubmit(onSubmit)} submitString='登録'>
       <TextField
         required
-        label='商品名'
+        label='単位'
         type='text'
         {...register('denomination')}
         error={'denomination' in errors}
@@ -62,7 +62,15 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
       />
       <TextField
         required
-        label='商品名'
+        label='説明'
+        type='text'
+        {...register('description')}
+        error={'description' in errors}
+        helperText={errors.description?.message}
+      />
+      <TextField
+        required
+        label='品番'
         type='text'
         {...register('part_number')}
         error={'part_number' in errors}
@@ -70,7 +78,7 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
       />
       <TextField
         required
-        label='商品名'
+        label='発注点'
         type='text'
         {...register('reorder_point')}
         error={'reorder_point' in errors}
@@ -78,7 +86,7 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
       />
       <TextField
         required
-        label='商品名'
+        label='カテゴリID'
         type='text'
         {...register('category_id')}
         error={'category_id' in errors}
@@ -86,7 +94,7 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
       />
       <TextField
         required
-        label='商品名'
+        label='税率ID'
         type='text'
         {...register('tax_id')}
         error={'tax_id' in errors}

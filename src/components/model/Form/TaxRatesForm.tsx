@@ -28,7 +28,7 @@ export const TaxRatesForm = ({ onSubmit }: FormSubmitProps<CreateTaxRateDto>) =>
     <FormTemplate onClick={handleSubmit(onSubmit)} submitString='登録'>
       <TextField
         required
-        label='商品名'
+        label='税率'
         type='text'
         {...register('rate')}
         error={'rates' in errors}
