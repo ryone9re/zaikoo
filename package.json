@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:next": "next dev",
     "dev:aspida": "aspida --watch",
+    "dev:next": "next dev",
     "build": "aspida && next build",
     "start": "next start",
     "lint": "next lint",
