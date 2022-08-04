@@ -1,14 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid';
 
-export type CategoryGridRow = {
-  id: number;
-  parentName: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { GetCategoryDto } from '../../../../api/@types';
 
-export const CategoryGridColDef: GridColDef<CategoryGridRow>[] = [
+export const CategoryGridColDef: GridColDef<GetCategoryDto>[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
   { field: 'parentName', headerName: '親カテゴリ名', flex: 1 },
   { field: 'name', headerName: '子カテゴリ名', flex: 1 },
