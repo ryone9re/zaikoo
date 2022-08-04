@@ -1,33 +1,25 @@
-import { getAuth, getIdToken } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 
 import { GetTaxRateDto } from '../../../../api/@types';
-import { useClient } from '../../../hooks/useClient';
+import { getClient } from '../../../hooks/useClient';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
 import { TaxRatesGridColDef } from '../../model/DataGrid/TaxRatesGrid';
 import { TaxRatesForm } from '../../model/Form/TaxRatesForm';
-import { GridChild } from '../Template/GridChild';
-import { GridParent } from '../Template/GridParent';
+import { GridChild } from '../../ui/Template/GridChild';
+import { GridParent } from '../../ui/Template/GridParent';
 
-export const TaxRates = () => {
-  const [rows, setRows] = useState<GetTaxRateDto[]>([]);
+type Props = {
+  rows: GetTaxRateDto[];
+};
 
-  const client = useClient();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const client = getClient();
+  const res = await client.api.tax_rates.get();
 
-  useEffect(() => {
-    const fetcher = async () => {
-      const auth = getAuth();
-      if (auth.currentUser) {
-        const token = await getIdToken(auth.currentUser);
-        const res = await client.api.tax_rates.get({
-          config: { headers: { Authorization: token } },
-        });
-        setRows(res.body);
-      }
-    };
-    fetcher();
-  }, [client.api.tax_rates]);
+  return { props: { rows: res.body } };
+};
 
+export const TaxRates = ({ rows }: Props) => {
   return (
     <main>
       <GridParent>
@@ -35,7 +27,7 @@ export const TaxRates = () => {
           <TaxRatesForm onSubmit={() => {}} />
         </GridChild>
         <GridChild>
-          <DataGridTemplate height={500} rows={rows} colDef={TaxRatesGridColDef} />
+          <DataGridTemplate height={500} rows={[]} colDef={TaxRatesGridColDef} />
         </GridChild>
       </GridParent>
     </main>

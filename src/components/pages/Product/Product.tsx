@@ -4,12 +4,10 @@ import { GetProductDto } from '../../../../api/@types';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
 import { ProductGridColDef } from '../../model/DataGrid/ProductGrid';
 import { ProductForm } from '../../model/Form/ProductForm';
-import { GridChild } from '../Template/GridChild';
-import { GridParent } from '../Template/GridParent';
+import { GridChild } from '../../ui/Template/GridChild';
+import { GridParent } from '../../ui/Template/GridParent';
 
 export const Product = () => {
-  const [rows, setRows] = useState<GetProductDto[]>([]);
-
   return (
     <main>
       <GridParent>

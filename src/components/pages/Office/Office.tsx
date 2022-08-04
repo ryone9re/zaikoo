@@ -4,13 +4,10 @@ import { GetBaseDto, GetSupplierDto } from '../../../../api/@types';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
 import { OfficeGridColDef } from '../../model/DataGrid/OfficeGrid';
 import { OfficeForm } from '../../model/Form/OfficeForm';
-import { GridChild } from '../Template/GridChild';
-import { GridParent } from '../Template/GridParent';
+import { GridChild } from '../../ui/Template/GridChild';
+import { GridParent } from '../../ui/Template/GridParent';
 
 export const Office = () => {
-  const [supplierRows, setSupplierRows] = useState<GetSupplierDto[]>([]);
-  const [baseRows, setBaseRows] = useState<GetBaseDto[]>([]);
-
   return (
     <main>
       <GridParent>

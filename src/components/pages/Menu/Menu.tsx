@@ -4,12 +4,10 @@ import { GetMenuDto } from '../../../../api/@types';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
 import { MenuGridColDef } from '../../model/DataGrid/MenuGrid';
 import { MenuForm } from '../../model/Form/MenuForm';
-import { GridChild } from '../Template/GridChild';
-import { GridParent } from '../Template/GridParent';
+import { GridChild } from '../../ui/Template/GridChild';
+import { GridParent } from '../../ui/Template/GridParent';
 
 export const Menu = () => {
-  const [rows, setRows] = useState<GetMenuDto[]>([]);
-
   return (
     <GridParent>
       <GridChild>
