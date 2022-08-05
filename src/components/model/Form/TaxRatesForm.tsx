@@ -12,7 +12,7 @@ const schema = yup.object({
     .number()
     .typeError('有効な数値を入力してください')
     .positive('マイナスの値はセットできません')
-    .integer('整数値のみ登録できます')
+    .max(1, '消費税は1(100%)を超える値を登録できません')
     .required('必須項目です'),
 });
 

@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
 export type StockInputs = {
-  productName: string;
+  productID: number;
   supplierName: string;
   stockQuantity: number;
   purchaseUnitPrice: number;
@@ -15,7 +15,12 @@ export type StockInputs = {
 };
 
 const schema = yup.object({
-  productName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  productID: yup
+    .number()
+    .typeError('有効なIDを入力してください')
+    .integer('IDは正の整数のみ入力できます')
+    .positive('IDは正の整数のみ入力できます')
+    .required('必須項目です'),
   supplierName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
   stockQuantity: yup
     .number()
@@ -52,9 +57,9 @@ export const StockForm = ({ onSubmit }: FormSubmitProps<StockInputs>) => {
         required
         label='商品名'
         type='text'
-        {...register('productName')}
-        error={'productName' in errors}
-        helperText={errors.productName?.message}
+        {...register('productID')}
+        error={'productID' in errors}
+        helperText={errors.productID?.message}
       />
       <TextField
         required
