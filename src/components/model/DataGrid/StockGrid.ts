@@ -1,19 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid';
 
-export type StockGridRow = {
-  id: number;
-  productName: string;
-  productDenomination: string;
-  supplierName: string;
-  stockQuantity: number;
-  purchaseUnitPrice: number;
-  sellingUnitPrice?: number;
-  baseName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { GetStockDto } from '../../../../api/@types';
 
-export const StockGridColDef: GridColDef<StockGridRow>[] = [
+export const StockGridColDef: GridColDef<GetStockDto>[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
   { field: 'productName', headerName: '商品名', flex: 1 },
   { field: 'supplierName', headerName: '仕入先', flex: 1 },

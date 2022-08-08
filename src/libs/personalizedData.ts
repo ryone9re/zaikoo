@@ -12,3 +12,11 @@ export const getPhoneNumber = (phoneNumberString: string) => {
     ? ''
     : util.format(num, PhoneNumberFormat.NATIONAL);
 };
+
+export const headerWithAuthToken = (token: string) => {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};

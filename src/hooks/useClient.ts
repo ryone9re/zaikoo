@@ -10,3 +10,11 @@ export const useClient = () => {
     })
   );
 };
+
+export const getClient = () => {
+  return api(
+    aspida(axios, {
+      baseURL: process.env.NEXT_PUBLIC_SERVER_URL!,
+    })
+  );
+};

@@ -1,20 +1,53 @@
-import { useState } from 'react';
+import { getIdToken } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 
-import { GetProductDto } from '../../../../api/@types';
+import { CreateProductDto, GetProductDto } from '../../../../api/@types';
+import { getClient, useClient } from '../../../hooks/useClient';
+import { headerWithAuthToken } from '../../../libs/personalizedData';
+import { useCurrentUser } from '../../model/Auth/firebase';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
 import { ProductGridColDef } from '../../model/DataGrid/ProductGrid';
+import { FormSubmitFunction } from '../../model/Form/FormTemplate';
 import { ProductForm } from '../../model/Form/ProductForm';
-import { GridChild } from '../Template/GridChild';
-import { GridParent } from '../Template/GridParent';
+import { GridChild } from '../../ui/Template/GridChild';
+import { GridParent } from '../../ui/Template/GridParent';
 
 export const Product = () => {
   const [rows, setRows] = useState<GetProductDto[]>([]);
+  const { currentUser } = useCurrentUser();
+  const client = useClient();
+
+  useEffect(() => {
+    (async function () {
+      if (currentUser) {
+        const client = getClient();
+        const token = await getIdToken(currentUser);
+        const res = await client.api.product.get({ config: headerWithAuthToken(token) });
+        setRows(res.body);
+      }
+    });
+  }, [currentUser]);
 
   return (
     <main>
       <GridParent>
         <GridChild>
-          <ProductForm onSubmit={() => {}} />
+          <ProductForm
+            onSubmit={async (data) => {
+              try {
+                await FormSubmitFunction<CreateProductDto, GetProductDto>({
+                  data: data,
+                  f: client.api.product.post,
+                  currentUser: currentUser,
+                });
+                window.alert('登録に成功しました');
+                location.reload();
+              } catch {
+                window.alert('登録に失敗しました');
+                location.reload();
+              }
+            }}
+          />
         </GridChild>
         <GridChild>
           <DataGridTemplate height={500} rows={rows} colDef={ProductGridColDef} />

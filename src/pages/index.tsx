@@ -1,11 +1,11 @@
-import ProductPage from '../components/pages/Product';
+import StockPage from '../components/pages/Stock';
 
 import type { NextPage } from 'next';
 
 const home: NextPage = () => {
   return (
     <>
-      <ProductPage />
+      <StockPage />
     </>
   );
 };

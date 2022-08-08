@@ -7,7 +7,10 @@ import { CreateCategoryDto } from '../../../../api/@types';
 
 import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
-const schema = yup.object({});
+const schema = yup.object({
+  parentName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+});
 
 export const CategoryForm = ({ onSubmit }: FormSubmitProps<CreateCategoryDto>) => {
   const {
@@ -19,14 +22,22 @@ export const CategoryForm = ({ onSubmit }: FormSubmitProps<CreateCategoryDto>) =
   });
   return (
     <FormTemplate onClick={handleSubmit(onSubmit)} submitString='登録'>
-      {/* <TextField
+      <TextField
         required
-        label='商品名'
+        label='親カテゴリ名'
         type='text'
-        {...register('')}
-        error={'rates' in errors}
-        helperText={errors.?.message}
-      /> */}
+        {...register('parent.name')}
+        error={'parent.name' in errors}
+        helperText={errors.parent?.name?.message}
+      />
+      <TextField
+        required
+        label='子カテゴリ名'
+        type='text'
+        {...register('name')}
+        error={'name' in errors}
+        helperText={errors.name?.message}
+      />
     </FormTemplate>
   );
 };

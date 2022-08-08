@@ -1,19 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid';
 
-export type ProductGridRow = {
-  id: number;
-  denomination: string;
-  name: string;
-  description?: string;
-  partNumber?: number;
-  reorderPoint?: number;
-  categoryId: number;
-  taxId: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { GetProductDto } from '../../../../api/@types';
 
-export const ProductGridColDef: GridColDef<ProductGridRow>[] = [
+export const ProductGridColDef: GridColDef<GetProductDto>[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
   { field: 'denomination', headerName: '単位', flex: 1 },
   { field: 'name', headerName: '商品名', flex: 1 },
