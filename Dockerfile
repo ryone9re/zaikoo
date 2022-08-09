@@ -1,14 +1,9 @@
-FROM node:lts-alpine AS base
-
-WORKDIR /base
-COPY . .
-RUN npm ci
-
-FROM base AS build
+FROM node:lts-alpine AS builder
 ARG NEXT_PUBLIC_APIDOC_URL
 ENV NEXT_PUBLIC_APIDOC_URL ${NEXT_PUBLIC_APIDOC_URL}
-WORKDIR /build
-COPY --from=base /base ./
+WORKDIR /builder
+COPY . .
+RUN npm ci
 RUN npm run genapi ${NEXT_PUBLIC_APIDOC_URL}
 RUN NODE_ENV=production npm run build
 
@@ -31,11 +26,11 @@ ENV NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}
 ENV NEXT_PUBLIC_SERVER_URL ${NEXT_PUBLIC_SERVER_URL}
 ENV NODE_ENV=production
 WORKDIR /app
-COPY --from=build /build/package.json /build/package-lock.json ./
-COPY --from=build /build/api ./api
-COPY --from=build /build/.next ./.next
-COPY --from=build /build/public ./public
-RUN npm i next
+COPY --from=builder /builder/package.json /builder/package-lock.json ./
+COPY --from=builder /builder/api ./api
+COPY --from=builder /builder/.next ./.next
+COPY --from=builder /builder/public ./public
+RUN npm i next aspida
 
 EXPOSE $PORT
 ENTRYPOINT ["npm", "run", "start"]
