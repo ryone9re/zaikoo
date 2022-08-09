@@ -5,7 +5,7 @@
     "dev:aspida": "aspida --watch",
     "dev:next": "next dev",
     "build": "aspida && next build",
-    "start": "aspida & next start -p ${PORT}",
+    "start": "next start -p ${PORT}",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,ts,tsx,json,css}'",
     "genapi": "rm -rf api && npx openapi2aspida -i"

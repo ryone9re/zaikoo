@@ -5,7 +5,7 @@ WORKDIR /builder
 COPY . .
 RUN npm ci
 RUN npx openapi2aspida -i ${NEXT_PUBLIC_APIDOC_URL}
-RUN NODE_ENV=production npm run build
+RUN npm run build
 
 FROM node:lts-alpine AS production
 ARG NEXT_PUBLIC_FIREBASE_API_KEY
@@ -27,10 +27,9 @@ ENV NEXT_PUBLIC_SERVER_URL ${NEXT_PUBLIC_SERVER_URL}
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /builder/package.json /builder/package-lock.json ./
-COPY --from=builder /builder/api ./api
 COPY --from=builder /builder/.next ./.next
 COPY --from=builder /builder/public ./public
-RUN npm i next aspida
+RUN npm i next
 
 EXPOSE $PORT
 ENTRYPOINT ["npm", "run", "start"]
