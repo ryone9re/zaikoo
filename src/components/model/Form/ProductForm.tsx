@@ -8,9 +8,9 @@ import { CreateProductDto } from '../../../../api/@types';
 import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
 const schema = yup.object({
-  deonmination: yup.string().typeError('有効な単位を入力してください').required('必須項目です'),
+  denomination: yup.string().typeError('有効な単位を入力してください').required('必須項目です'),
   name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
-  description: yup.string().typeError('有効な文字を入力してください').notRequired(),
+  description: yup.string().typeError('有効な文字を入力してください'),
   category_id: yup
     .number()
     .typeError('有効な文字を入力してください')
@@ -29,9 +29,8 @@ const schema = yup.object({
     .number()
     .typeError('有効な文字を入力してください')
     .positive('マイナスの値はセットできません')
-    .integer('整数値のみ登録できます')
-    .notRequired(),
-  reorder_point: yup.number().typeError('有効な文字を入力してください').notRequired(),
+    .integer('整数値のみ登録できます'),
+  reorder_point: yup.number().typeError('有効な文字を入力してください'),
 });
 
 export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => {
@@ -61,7 +60,6 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
         helperText={errors.name?.message}
       />
       <TextField
-        required
         label='説明'
         type='text'
         {...register('description')}
@@ -69,7 +67,6 @@ export const ProductForm = ({ onSubmit }: FormSubmitProps<CreateProductDto>) => 
         helperText={errors.description?.message}
       />
       <TextField
-        required
         label='品番'
         type='text'
         {...register('part_number')}

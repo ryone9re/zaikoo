@@ -6,7 +6,7 @@ import { getClient } from '../../../hooks/useClient';
 import { headerWithAuthToken } from '../../../libs/personalizedData';
 import { useCurrentUser } from '../../model/Auth/firebase';
 import { DataGridTemplate } from '../../model/DataGrid/DataGridTemplate';
-import { OfficeGridColDef } from '../../model/DataGrid/OfficeGrid';
+import { BaseOfficeGridColDef, SupplierOfficeGridColDef } from '../../model/DataGrid/OfficeGrid';
 import { OfficeForm } from '../../model/Form/OfficeForm';
 import { GridChild } from '../../ui/Template/GridChild';
 import { GridParent } from '../../ui/Template/GridParent';
@@ -38,10 +38,10 @@ export const Office = () => {
           <OfficeForm onSubmit={() => {}} />
         </GridChild>
         <GridChild>
-          <DataGridTemplate height={500} rows={supplierRows} colDef={OfficeGridColDef} />
+          <DataGridTemplate height={500} rows={supplierRows} colDef={SupplierOfficeGridColDef} />
         </GridChild>
         <GridChild>
-          <DataGridTemplate height={500} rows={baseRows} colDef={OfficeGridColDef} />
+          <DataGridTemplate height={500} rows={baseRows} colDef={BaseOfficeGridColDef} />
         </GridChild>
       </GridParent>
     </main>
