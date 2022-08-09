@@ -8,7 +8,9 @@ import { CreateCategoryDto } from '../../../../api/@types';
 import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
 const schema = yup.object({
-  parentName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  parent: yup.object({
+    name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+  }),
   name: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
 });
 

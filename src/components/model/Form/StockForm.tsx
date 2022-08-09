@@ -3,102 +3,104 @@ import { TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { CreateStockDto } from '../../../../api/@types';
+
 import { FormSubmitProps, FormTemplate } from './FormTemplate';
 
-export type StockInputs = {
-  productID: number;
-  supplierName: string;
-  stockQuantity: number;
-  purchaseUnitPrice: number;
-  sellingUnitPrice?: number;
-  baseName: string;
-};
-
 const schema = yup.object({
-  productID: yup
+  product_id: yup
     .number()
     .typeError('有効なIDを入力してください')
     .integer('IDは正の整数のみ入力できます')
     .positive('IDは正の整数のみ入力できます')
     .required('必須項目です'),
-  supplierName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
-  stockQuantity: yup
+  supplier_id: yup
+    .number()
+    .typeError('有効な数値を入力してください')
+    .integer('IDは正の整数のみ入力できます')
+    .positive('IDは正の整数のみ入力できます')
+    .required('必須項目です'),
+  stock_quantity: yup
     .number()
     .typeError('有効な数値を入力してください')
     .positive('マイナスの値はセットできません')
     .integer('整数値のみ登録できます')
     .required('必須項目です'),
-  purchaseUnitPrice: yup
+  purchase_unit_price: yup
     .number()
     .typeError('有効な数値を入力してください')
     .positive('マイナスの値はセットできません')
     .integer('整数値のみ登録できます')
     .required('必須項目です'),
-  sellingUnitPrice: yup
+  selling_unit_price: yup
     .number()
     .typeError('有効な数値を入力してください')
     .positive('マイナスの値はセットできません')
-    .integer('整数値のみ登録できます')
-    .notRequired(),
-  baseName: yup.string().typeError('有効な文字を入力してください').required('必須項目です'),
+    .integer('整数値のみ登録できます'),
+  base_id: yup
+    .number()
+    .typeError('有効な数値を入力してください')
+    .integer('IDは正の整数のみ入力できます')
+    .positive('IDは正の整数のみ入力できます')
+    .required('必須項目です'),
 });
 
-export const StockForm = ({ onSubmit }: FormSubmitProps<StockInputs>) => {
+export const StockForm = ({ onSubmit }: FormSubmitProps<CreateStockDto>) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<StockInputs>({
+  } = useForm<CreateStockDto>({
     resolver: yupResolver(schema),
   });
   return (
     <FormTemplate onClick={handleSubmit(onSubmit)} submitString='在庫登録'>
       <TextField
         required
-        label='商品名'
+        label='商品ID'
         type='text'
-        {...register('productID')}
-        error={'productID' in errors}
-        helperText={errors.productID?.message}
+        {...register('product_id')}
+        error={'product_id' in errors}
+        helperText={errors.product_id?.message}
       />
       <TextField
         required
-        label='仕入先名'
+        label='仕入先ID'
         type='text'
-        {...register('supplierName')}
-        error={'supplierName' in errors}
-        helperText={errors.supplierName?.message}
+        {...register('supplier_id')}
+        error={'supplier_id' in errors}
+        helperText={errors.supplier_id?.message}
       />
       <TextField
         required
         label='数量'
         type='number'
-        {...register('stockQuantity')}
-        error={'stockQuantity' in errors}
-        helperText={errors.stockQuantity?.message}
+        {...register('stock_quantity')}
+        error={'stock_quantity' in errors}
+        helperText={errors.stock_quantity?.message}
       />
       <TextField
         required
         label='仕入単価'
         type='number'
-        {...register('purchaseUnitPrice')}
-        error={'purchaseUnitPrice' in errors}
-        helperText={errors.purchaseUnitPrice?.message}
+        {...register('purchase_unit_price')}
+        error={'purchase_unit_price' in errors}
+        helperText={errors.purchase_unit_price?.message}
       />
       <TextField
         label='販売単価'
         type='number'
-        {...register('sellingUnitPrice')}
-        error={'sellingUnitPrice' in errors}
-        helperText={errors.sellingUnitPrice?.message}
+        {...register('selling_unit_price')}
+        error={'selling_unit_price' in errors}
+        helperText={errors.selling_unit_price?.message}
       />
       <TextField
         required
-        label='拠点名'
+        label='拠点ID'
         type='text'
-        {...register('baseName')}
-        error={'baseName' in errors}
-        helperText={errors.baseName?.message}
+        {...register('base_id')}
+        error={'base_id' in errors}
+        helperText={errors.base_id?.message}
       />
     </FormTemplate>
   );

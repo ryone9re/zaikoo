@@ -33,14 +33,7 @@ export const Stock = () => {
       <GridParent>
         <GridChild>
           <StockForm
-            onSubmit={async (d) => {
-              const data: CreateStockDto = {
-                product_id: d.productID,
-                supplier_id: 1,
-                stock_quantity: d.stockQuantity,
-                purchase_unit_price: d.purchaseUnitPrice,
-                base_id: 1,
-              };
+            onSubmit={async (data) => {
               try {
                 await FormSubmitFunction<CreateStockDto, GetStockDto>({
                   data: data,

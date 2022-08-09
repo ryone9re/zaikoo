@@ -25,7 +25,7 @@ export const Product = () => {
         const res = await client.api.product.get({ config: headerWithAuthToken(token) });
         setRows(res.body);
       }
-    });
+    })();
   }, [currentUser]);
 
   return (

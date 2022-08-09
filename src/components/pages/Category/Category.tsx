@@ -25,7 +25,7 @@ export const Category = () => {
         const res = await client.api.category.get({ config: headerWithAuthToken(token) });
         setRows(res.body);
       }
-    });
+    })();
   }, [currentUser]);
 
   return (
