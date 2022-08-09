@@ -4,7 +4,7 @@ ENV NEXT_PUBLIC_APIDOC_URL ${NEXT_PUBLIC_APIDOC_URL}
 WORKDIR /builder
 COPY . .
 RUN npm ci
-RUN npm run genapi ${NEXT_PUBLIC_APIDOC_URL}
+RUN npx openapi2aspida -i ${NEXT_PUBLIC_APIDOC_URL}
 RUN NODE_ENV=production npm run build
 
 FROM node:lts-alpine AS production
