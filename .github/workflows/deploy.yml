@@ -45,7 +45,7 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build a docker image
-        run: docker build -t $IMAGE .
+        run: docker build -t $IMAGE . --build-arg "NEXT_PUBLIC_APIDOC_URL"="${{ secrets.NEXT_PUBLIC_APIDOC_URL }}"
 
       - name: Push the docker image to Container Registry
         run: docker push $IMAGE
