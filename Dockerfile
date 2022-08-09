@@ -34,7 +34,7 @@ ENV NEXT_PUBLIC_SERVER_URL ${NEXT_PUBLIC_SERVER_URL}
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH ${PATH /app/node_modules/.bin:$PATH}
+ENV PATH /app/node_modules/.bin:$PATH
 
 COPY . .
 
