@@ -38,8 +38,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY . .
 
+RUN npm run genapi ${NEXT_PUBLIC_SERVER_URL}
+
 RUN npm install --only=production && npm run build
 
-RUN chmod +x ./start.sh
-
-CMD ["./start.sh"]
+ENTRYPOINT ["npm", "run", "start"]
