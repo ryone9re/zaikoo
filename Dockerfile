@@ -9,7 +9,7 @@ ARG NEXT_PUBLIC_APIDOC_URL
 ENV NEXT_PUBLIC_APIDOC_URL ${NEXT_PUBLIC_APIDOC_URL}
 WORKDIR /build
 COPY --from=base /base ./
-RUN npm run genapi $NEXT_PUBLIC_APIDOC_URL
+RUN npm run genapi ${NEXT_PUBLIC_APIDOC_URL}
 RUN NODE_ENV=production npm run build
 
 FROM node:lts-alpine AS production
