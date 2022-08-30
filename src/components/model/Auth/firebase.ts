@@ -19,12 +19,13 @@ export const firebaseApp = () => initializeApp(firebaseParams);
 export const login = () => {
   const google = new GoogleAuthProvider();
   const auth = getAuth();
-  return signInWithPopup(auth, google);
+  signInWithPopup(auth, google);
 };
 
 export const logout = () => {
   const auth = getAuth();
-  return signOut(auth);
+  signOut(auth);
+  location.reload();
 };
 
 export const useCurrentUser = () => {
