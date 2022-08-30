@@ -16,10 +16,10 @@ const firebaseParams: FirebaseOptions = {
 
 export const firebaseApp = () => initializeApp(firebaseParams);
 
-export const login = () => {
+export const login = async () => {
   const google = new GoogleAuthProvider();
   const auth = getAuth();
-  signInWithPopup(auth, google);
+  await signInWithPopup(auth, google);
 };
 
 export const logout = () => {
