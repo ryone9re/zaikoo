@@ -1,7 +1,12 @@
 import { getIdToken } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
-import { CreateProductDto, GetProductDto } from '../../../../api/@types';
+import {
+  CreateProductDto,
+  GetCategoryDto,
+  GetProductDto,
+  GetTaxRateDto,
+} from '../../../../api/@types';
 import { getClient, useClient } from '../../../hooks/useClient';
 import { headerWithAuthToken } from '../../../libs/personalizedData';
 import { useCurrentUser } from '../../model/Auth/firebase';
@@ -14,6 +19,8 @@ import { GridParent } from '../../ui/Template/GridParent';
 
 export const Product = () => {
   const [rows, setRows] = useState<GetProductDto[]>([]);
+  const [tax, setTaxRows] = useState<GetTaxRateDto[]>([]);
+  const [cat, setCat] = useState<GetCategoryDto[]>([]);
   const { currentUser } = useCurrentUser();
   const client = useClient();
 
@@ -24,6 +31,10 @@ export const Product = () => {
         const token = await getIdToken(currentUser);
         const res = await client.api.product.get({ config: headerWithAuthToken(token) });
         setRows(res.body);
+        const t = await client.api.tax_rates.get({ config: headerWithAuthToken(token) });
+        setTaxRows(t.body);
+        const c = await client.api.category.get({ config: headerWithAuthToken(token) });
+        setCat(c.body);
       }
     })();
   }, [currentUser]);
@@ -47,6 +58,8 @@ export const Product = () => {
                 location.reload();
               }
             }}
+            taxs={tax}
+            cat={cat}
           />
         </GridChild>
         <GridChild>
