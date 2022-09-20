@@ -1,7 +1,7 @@
 import { getIdToken } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
-import { CreateCategoryDto, GetCategoryDto } from '../../../../api/@types';
+import { CreateCategoryDto, GetCategoryDto, GetParentCategoryDto } from '../../../../api/@types';
 import { getClient, useClient } from '../../../hooks/useClient';
 import { headerWithAuthToken } from '../../../libs/personalizedData';
 import { useCurrentUser } from '../../model/Auth/firebase';
@@ -14,6 +14,7 @@ import { GridParent } from '../../ui/Template/GridParent';
 
 export const Category = () => {
   const [rows, setRows] = useState<GetCategoryDto[]>([]);
+  const [parents, setParents] = useState<GetParentCategoryDto[]>([]);
   const { currentUser } = useCurrentUser();
   const client = useClient();
 
@@ -24,6 +25,8 @@ export const Category = () => {
         const token = await getIdToken(currentUser);
         const res = await client.api.category.get({ config: headerWithAuthToken(token) });
         setRows(res.body);
+        const p = await client.api.category.parent.get({ config: headerWithAuthToken(token) });
+        setParents(p.body);
       }
     })();
   }, [currentUser]);
@@ -47,6 +50,7 @@ export const Category = () => {
                 location.reload();
               }
             }}
+            parents={parents}
           />
         </GridChild>
         <GridChild>
