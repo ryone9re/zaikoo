@@ -1,5 +1,7 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import Router from 'next/router';
+import { Dispatch, SetStateAction } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from '../States/currentUser';
@@ -16,10 +18,16 @@ const firebaseParams: FirebaseOptions = {
 
 export const firebaseApp = () => initializeApp(firebaseParams);
 
-export const login = async () => {
+export const login = async (setIsError: Dispatch<SetStateAction<boolean>>) => {
   const google = new GoogleAuthProvider();
   const auth = getAuth();
-  await signInWithPopup(auth, google);
+  try {
+    await signInWithPopup(auth, google);
+    setIsError(false);
+    Router.push('/');
+  } catch {
+    setIsError(true);
+  }
 };
 
 export const logout = () => {
