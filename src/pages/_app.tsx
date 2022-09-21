@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 
-import { firebaseApp } from '../components/model/Auth/firebase';
+import { firebaseApp, firebaseParams } from '../components/model/Auth/firebase';
 import { currentUserState } from '../components/model/States/currentUser';
 import createEmotionCache from '../libs/createEmotionCache';
 import theme from '../styles/theme';
@@ -46,7 +46,7 @@ function AuthObserver() {
 }
 
 export default function MyApp(props: MyAppProps) {
-  console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+  console.table(firebaseParams);
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const apps = getApps();
 
