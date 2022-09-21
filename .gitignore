@@ -38,3 +38,4 @@ yarn-error.log*
 
 # api
 /api
+src/pages/test.tsx

@@ -1,14 +1,14 @@
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import { getApps, initializeApp } from 'firebase/app';
+import { getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_COOKIE_KEY } from 'next-fortress/constants';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 
-import { firebaseApp, firebaseParams } from '../components/model/Auth/firebase';
+import { firebaseApp } from '../components/model/Auth/firebase';
 import { currentUserState } from '../components/model/States/currentUser';
 import createEmotionCache from '../libs/createEmotionCache';
 import theme from '../styles/theme';
@@ -46,12 +46,12 @@ function AuthObserver() {
 }
 
 export default function MyApp(props: MyAppProps) {
+  console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const apps = getApps();
 
   if (apps.length === 0) {
-    // firebaseApp();
-    initializeApp(firebaseParams);
+    firebaseApp();
   }
 
   return (
