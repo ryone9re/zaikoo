@@ -46,7 +46,6 @@ function AuthObserver() {
 }
 
 export default function MyApp(props: MyAppProps) {
-  console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const apps = getApps();
 
