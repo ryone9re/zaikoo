@@ -156,7 +156,7 @@ export const ProductForm = ({ onSubmit, taxs, cat }: Props) => {
         control={control}
         render={({ field }) => (
           <FormControl fullWidth>
-            <InputLabel id={field.name} error={field.name in errors}>
+            <InputLabel required id={field.name} error={field.name in errors}>
               メインカテゴリー
             </InputLabel>
             <Select
@@ -187,7 +187,7 @@ export const ProductForm = ({ onSubmit, taxs, cat }: Props) => {
         control={control}
         render={({ field }) => (
           <FormControl fullWidth>
-            <InputLabel id={field.name} error={field.name in errors}>
+            <InputLabel required id={field.name} error={field.name in errors}>
               サブカテゴリー
             </InputLabel>
             <Select
@@ -217,7 +217,7 @@ export const ProductForm = ({ onSubmit, taxs, cat }: Props) => {
         control={control}
         render={({ field }) => (
           <FormControl fullWidth>
-            <InputLabel id={field.name} error={field.name in errors}>
+            <InputLabel required id={field.name} error={field.name in errors}>
               税率
             </InputLabel>
             <Select
