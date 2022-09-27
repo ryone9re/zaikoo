@@ -7,13 +7,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-import { logout } from '../../model/Auth/firebase';
+import { logout, useCurrentUser } from '../../model/Auth/firebase';
 
 type Props = {
   toggleDrawer: (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 };
 
 export default function Header({ toggleDrawer }: Props) {
+  const { currentUser } = useCurrentUser();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -31,9 +32,11 @@ export default function Header({ toggleDrawer }: Props) {
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             zaikos
           </Typography>
-          <Button color='inherit' onClick={logout}>
-            ログアウト
-          </Button>
+          {currentUser && (
+            <Button color='inherit' onClick={logout}>
+              ログアウト
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
