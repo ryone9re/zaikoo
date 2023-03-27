@@ -1,6 +1,6 @@
-# zaikos テストリポジトリ
+# zaik テストリポジトリ
 
-このリポジトリは在庫管理システムのフロントエンド､zaikos の開発リポジトリ兼実験リポジトリになります｡
+このリポジトリは開発リポジトリ兼実験リポジトリになります｡
 
 **現行のシステムとは関係ありません｡**
 
@@ -62,12 +62,7 @@ ESLint によるリント､Prettier によるソースコードフォーマッ�
 
 外部ライブラリ等の使用によるライセンスの継承が発生した際は､そのライセンスを継承します｡
 
-ソースコードは､株式会社 Women's Future Center の許可を得た場合のみ､公開できます｡
-
-また､その他ロゴマーク等は､株式会社 Women's Future Center の著作権取り扱いが適用されます｡
 
 ## Authors
-
-- [株式会社 Women's Future Center](https://wfc-wa.com)
 
 - Ryoichi Kurimoto ([ryone9re](https://github.com/ryone9re))
